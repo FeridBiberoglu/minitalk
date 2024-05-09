@@ -18,6 +18,7 @@ static void signalhandler(int signum)
         printf("%c", i);
         bit = 0;
         i = 0;
+        usleep(100);
     }
 
 }

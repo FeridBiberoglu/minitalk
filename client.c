@@ -29,8 +29,8 @@ int main(int argc, char **argv)
         printf("WRONG FORMAT!");
         return 0;
     }
-    pid = atoi(argv[1][1]);
-    while(argv[1][i])
+    pid = atoi(argv[1]);
+    while(argv[2][i])
     {
         send_message(pid,argv[2][i]);
         i++;
