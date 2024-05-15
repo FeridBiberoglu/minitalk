@@ -6,12 +6,24 @@
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:48:03 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/15 13:47:26 by fbiberog         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:21:06 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+static void	terminate(int pid)
+{
+	int	i;
+
+	i = 0;
+	while (i < 8)
+	{
+		kill(pid, SIGUSR1);
+		usleep(100);
+		i++;
+	}
+}
 static void	send_message(int pid, char argv)
 {
 	int	bit;
@@ -26,6 +38,7 @@ static void	send_message(int pid, char argv)
 		usleep(100);
 		bit++;
 	}
+	terminate(pid);
 }
 
 int	main(int argc, char **argv)
@@ -44,8 +57,7 @@ int	main(int argc, char **argv)
 	{
 		send_message(pid, argv[2][i]);
 		i++;
-		if(!argv[2][i])
-			send_message(pid, '\n');
 	}
-	return 0;
+	send_message(pid, '\n');
+	return (0);
 }
