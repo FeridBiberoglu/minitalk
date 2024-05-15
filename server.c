@@ -6,7 +6,7 @@
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 15:20:44 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/15 15:17:06 by fbiberog         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:08:13 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(void)
 	pid = getpid();
 	ft_printf("PID: %d\n", pid);
 	sa.sa_handler = signalhandler;
-	sa.sa_flags = 0;
+	sa.sa_flags = 1;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);

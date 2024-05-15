@@ -6,7 +6,7 @@
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:48:03 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/15 15:21:06 by fbiberog         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:06:27 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	terminate(int pid)
 		i++;
 	}
 }
+
 static void	send_message(int pid, char argv)
 {
 	int	bit;
