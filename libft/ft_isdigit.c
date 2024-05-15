@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 14:44:08 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/14 15:35:27 by fbiberog         ###   ########.fr       */
+/*   Created: 2023/10/23 17:10:35 by fbiberog          #+#    #+#             */
+/*   Updated: 2023/10/23 17:10:48 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include <unistd.h>
 
-# include <sys/types.h>
-# include <signal.h>
-# include "libft/libft.h"
+int	ft_isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
+	else
+		return (0);
+}
 
-#endif
+// int main(void)
+// {
+// 	ft_isdigit();
+// }

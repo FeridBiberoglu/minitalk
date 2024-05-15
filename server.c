@@ -6,7 +6,7 @@
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 15:20:44 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/14 15:24:01 by fbiberog         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:45:49 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ static void	signalhandler(int signal)
 
 	if (signal == SIGUSR1)
 		i |= (1 << bit);
-	else if (signal == SIGUSR2)
-		i &= ~(1 << bit);
 	bit++;
 	if (bit == 8)
 	{
-		printf("%c", i);
+		ft_printf("%c", i);
 		bit = 0;
 		i = 0;
 	}
@@ -33,12 +31,18 @@ static void	signalhandler(int signal)
 int	main(void)
 {
 	pid_t	pid;
+	struct sigaction sa;
 
 	pid = getpid();
-	printf("PID: %d\n", pid);
-	signal(SIGUSR1, signalhandler);
-	signal(SIGUSR2, signalhandler);
+	ft_printf("PID: %d\n", pid);
+	sa.sa_handler = signalhandler;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
+	{
 		pause();
+	}
 	return (0);
 }

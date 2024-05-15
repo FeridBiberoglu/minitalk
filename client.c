@@ -6,7 +6,7 @@
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:48:03 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/14 15:23:52 by fbiberog         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:47:26 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,16 @@ int	main(int argc, char **argv)
 	i = 0;
 	if (argc != 3)
 	{
-		printf("WRONG FORMAT!");
+		ft_printf("WRONG FORMAT!");
 		return (0);
 	}
-	pid = atoi(argv[1]);
+	pid = ft_atoi(argv[1]);
 	while (argv[2][i])
 	{
 		send_message(pid, argv[2][i]);
 		i++;
+		if(!argv[2][i])
+			send_message(pid, '\n');
 	}
-	send_message(pid, '\n');
+	return 0;
 }

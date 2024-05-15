@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 14:44:08 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/14 15:35:27 by fbiberog         ###   ########.fr       */
+/*   Created: 2023/10/23 17:18:41 by fbiberog          #+#    #+#             */
+/*   Updated: 2023/10/23 17:18:46 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <sys/types.h>
-# include <signal.h>
-# include "libft/libft.h"
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
 
-#endif
+	c = c % 256;
+	i = 0;
+	while (s[i] != c && s[i])
+		i++;
+	if (s[i] == c)
+		return ((char *)&s[i]);
+	return (0);
+}
+
+// int main(void)
+// {
+// 	const char *s = "sas";
+// 	int c = 'm';
+// 	char result = *ft_strchr(s, c);
+// 	char result2 = *strchr(s, c);
+// 	printf("%c\n", result);
+// 	printf("%c", result2);
+// }

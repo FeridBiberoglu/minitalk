@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 14:44:08 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/14 15:35:27 by fbiberog         ###   ########.fr       */
+/*   Created: 2023/10/23 17:08:38 by fbiberog          #+#    #+#             */
+/*   Updated: 2023/10/23 17:08:51 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include <unistd.h>
 
-# include <sys/types.h>
-# include <signal.h>
-# include "libft/libft.h"
+int	ft_isalnum(char s)
+{
+	if (s >= 48 && s <= 57)
+		return (1);
+	else if ((s >= 97 && s <= 122) || (s >= 65 && s <= 90))
+		return (1);
+	else
+		return (0);
+}
 
-#endif
+// int main(void)
+// {
+// 	ft_isalnum(']');
+// }

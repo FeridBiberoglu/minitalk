@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 14:44:08 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/14 15:35:27 by fbiberog         ###   ########.fr       */
+/*   Created: 2023/10/23 17:09:00 by fbiberog          #+#    #+#             */
+/*   Updated: 2023/10/23 17:09:23 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include <unistd.h>
 
-# include <sys/types.h>
-# include <signal.h>
-# include "libft/libft.h"
+int	ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	else
+		return (0);
+}
 
-#endif
+// int main(void)
+// {
+//     int s = '1';
+//     ft_isalpha(s);
+// }

@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 14:44:08 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/14 15:35:27 by fbiberog         ###   ########.fr       */
+/*   Created: 2023/10/24 21:11:27 by fbiberog          #+#    #+#             */
+/*   Updated: 2023/10/24 21:12:34 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+{
+	int		i;
+	char	*temp;
 
-# include <sys/types.h>
-# include <signal.h>
-# include "libft/libft.h"
-
-#endif
+	i = 0;
+	temp = s;
+	while (s[i])
+	{
+		f(i, &s[i]);
+		i++;
+	}
+}
