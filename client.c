@@ -6,59 +6,63 @@
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:48:03 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/15 17:06:27 by fbiberog         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:36:17 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	terminate(int pid)
-{
-	int	i;
+volatile sig_atomic_t	g_signal_received = 0;
 
-	i = 0;
-	while (i < 8)
-	{
-		kill(pid, SIGUSR1);
-		usleep(100);
-		i++;
-	}
+void	signalhandler(int signum)
+{
+	if (signum == SIGUSR1)
+		g_signal_received = 1;
 }
 
-static void	send_message(int pid, char argv)
+void	send_message(int pid, char *message)
 {
+	int	i;
 	int	bit;
 
+	i = 0;
 	bit = 0;
-	while (bit < 8)
+	while (message[i] != '\0')
 	{
-		if ((argv & (0x01 << bit)) != 0)
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
-		usleep(100);
-		bit++;
+		while (bit < 8)
+		{
+			if ((message[i] & (0x01 << bit)) != 0)
+				kill(pid, SIGUSR1);
+			else
+				kill(pid, SIGUSR2);
+			while (!g_signal_received)
+				pause();
+			g_signal_received = 0;
+			usleep(100);
+			bit++;
+		}
+		i++;
+		bit = 0;
 	}
-	terminate(pid);
 }
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	int	pid;
+	int					pid;
+	struct sigaction	sa;
 
-	i = 0;
+	printf("%i\n", argc);
 	if (argc != 3)
 	{
-		ft_printf("WRONG FORMAT!");
+		printf("Error\nWRONG FORMAT!\n");
 		return (0);
 	}
-	pid = ft_atoi(argv[1]);
-	while (argv[2][i])
-	{
-		send_message(pid, argv[2][i]);
-		i++;
-	}
-	send_message(pid, '\n');
+	pid = atoi(argv[1]);
+	sa.sa_handler = signalhandler;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	send_message(pid, argv[2]);
+	send_message(pid, "\n");
 	return (0);
 }

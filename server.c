@@ -6,38 +6,35 @@
 /*   By: fbiberog <fbiberog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 15:20:44 by fbiberog          #+#    #+#             */
-/*   Updated: 2024/05/15 16:08:13 by fbiberog         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:30:13 by fbiberog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	signalhandler(int signal)
+static void	signalhandler(int signal, siginfo_t *info, void *unused)
 {
 	static int	i;
 	static int	bit;
-	static int	reset;
 
+	unused = NULL;
 	if (signal == SIGUSR1)
 	{
-		reset++;
 		i |= (1 << bit);
+		bit++;
 	}
-	else if (signal == SIGUSR2)
-		reset = 0;
-	bit++;
-	if (reset == 8)
+	if (signal == SIGUSR2)
 	{
-		bit = 0;
-		i = 0;
-		reset = 0;
+		i &= ~(1 << bit);
+		bit++;
 	}
 	if (bit == 8)
 	{
-		ft_printf("%c", i);
+		write(1, &i, 1);
 		bit = 0;
 		i = 0;
 	}
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)
@@ -46,9 +43,9 @@ int	main(void)
 	struct sigaction	sa;
 
 	pid = getpid();
-	ft_printf("PID: %d\n", pid);
-	sa.sa_handler = signalhandler;
-	sa.sa_flags = 1;
+	printf("PID: %d\n", pid);
+	sa.sa_sigaction = signalhandler;
+	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
