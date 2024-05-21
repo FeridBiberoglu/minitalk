@@ -8,16 +8,16 @@ all: server client
 
 bonus: server client
 
-server: server.o libft/libft.a
+server: server.o libft
 	$(CC) -o $@ $< -Llibft -lft
 
-client: client.o libft/libft.a
+client: client.o libft
 	$(CC) -o $@ $< -Llibft -lft
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $?
 
-libft/libft.a:
+libft:
 	make -C libft
 
 clean:
@@ -29,4 +29,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus libft clean fclean re
